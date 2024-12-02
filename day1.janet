@@ -14,4 +14,15 @@
 (eachp [x y] (zipcoll (sort list-one) (sort list-two))
   (+= distance (math/abs (- x y))))
 
-(print distance)
+(print "Total distance: " distance)
+
+########################################################################
+
+(var similarity 0)
+
+(each n list-one
+  (let [occurences (filter |(= n $) list-two)
+        count (length occurences)]
+    (+= similarity (* count n))))
+
+(print "Similarity score: " similarity)
