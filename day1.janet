@@ -4,7 +4,7 @@
 (var list-one @[])
 (var list-two @[])
 
-(with [input (file/open "day1.txt")]
+(with [input (file/open "./inputs/day1.txt")]
   (each line (file/lines input)
     (let [chunks (string/split " " (string/trim line))
           [x y] (filter number? (map scan-number chunks))]
