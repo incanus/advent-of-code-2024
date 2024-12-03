@@ -5,10 +5,8 @@
        (peg/match ~{:main (split "\n" (group :line))
                     :line (some (+ (number :d+) :s))})))
 
-(var unsafe 0)
-
-(each report reports
-  (if (or
+(defn unsafe? [report]
+  (or
     # has repeats?
     (->> (frequencies report)
          (values)
@@ -28,7 +26,6 @@
             (if (or (= delta 0)
                     (> delta 3))
               (return bad-delta true))))
-        (set previous level))))
-    (++ unsafe)))
+        (set previous level)))))
 
-(print "Safe reports: " (- (length reports) unsafe))
+(print "Safe reports: " (- (length reports) (length (filter unsafe? reports))))
