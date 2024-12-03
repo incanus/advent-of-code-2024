@@ -1,7 +1,8 @@
 #!/usr/bin/env janet
 
 (def reports
-  (->> (string/trim (slurp "inputs/day2.txt"))
+  (->> (slurp "inputs/day2.txt")
+       (string/trim)
        (peg/match ~{:main (split "\n" (group :line))
                     :line (some (+ (number :d+) :s))})))
 
@@ -28,4 +29,4 @@
               (return bad-delta true))))
         (set previous level)))))
 
-(print "Safe reports: " (- (length reports) (length (filter unsafe? reports))))
+(print "Safe reports: " (- ;(map length [reports (filter unsafe? reports)])))
