@@ -30,3 +30,15 @@
         (set previous level)))))
 
 (print "Safe reports: " (- ;(map length [reports (filter unsafe? reports)])))
+
+########################################################################
+
+(defn dampened-safe? [report]
+  (if (unsafe? report)
+    (label safe
+      (loop [i :range [0 (length report)]]
+        (if (not (unsafe? (array/remove (array/concat @[] report) i)))
+          (return safe true))))
+    true))
+
+(print "Safe reports (dampened): " (length (filter dampened-safe? reports)))
