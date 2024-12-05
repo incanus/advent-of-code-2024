@@ -19,3 +19,10 @@
                     :ignorable (* "don't()" (thru "do()"))
                     :main (any (+ (group :instruction) (+ :ignorable 1)))})
        (multiply-and-sum)))
+
+#
+# Tough spots / learning opportunities:
+#
+# 1. This was all about the PEGs. Plenty of learning to be had here to
+#    navigate the intricacies of the matching language. These could be made
+#    better, but I'm pretty happy to have gotten this far on Day 3.
