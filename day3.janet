@@ -1,3 +1,5 @@
+#!/usr/bin/env janet
+
 (def input (slurp "inputs/day3.txt"))
 
 (defn multiply-and-sum [operands] (sum (map |(* ;$) operands)))
