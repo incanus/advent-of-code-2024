@@ -39,3 +39,17 @@
       (+= total val))))
 
 (print "Correctly-ordered middle-page totals: " total)
+
+########################################################################
+
+(set total 0)
+
+(each u updates
+  (let [sorted-u (sorted u compare-page)]
+    (if (not (deep= u sorted-u))
+      (let [len (length sorted-u)
+            idx (math/floor (/ len 2))
+            val (scan-number (sorted-u idx))]
+        (+= total val)))))
+
+(print "Fixed middle-page totals: " total)
