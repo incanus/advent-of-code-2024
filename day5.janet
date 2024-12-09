@@ -53,3 +53,27 @@
         (+= total val)))))
 
 (print "Fixed middle-page totals: " total)
+
+#
+# Tough spots / learning opportunities:
+#
+# 1. Line 5: I think I spent more time on reading the input and building
+#    the data structures than solving the algorithm. It could be cleaner,
+#    but I continue to enjoy the threading operators for this sort of thing.
+#
+# 2. Line 26: The sort comparator took a while as I had to infer what values
+#    to return. At first I was doing -1/1/0, but then realized that this was
+#    supposed to behave like `<`and needed to return `true` or `false`. Then
+#    I added on the first equality condition to save a little time since
+#    print-debugging revealed that `sorted` does an identity comparison.
+#
+# 3. Line 35: Forgot at first that I needed to deep-compare arrays again.
+#
+# 4. Line 47: It was trivial to solve Part Two. I thought about combining
+#    the work of both into one algorithm, but wanted to keep the formatting
+#    the same as other days, where each has their own separate section.
+#
+# 5. Lines 38 & 52: I realized that since I was doing a custom sort based
+#    on array indexing anyway, I could leave things as strings and just
+#    scan them into numbers once I needed to sum them.
+#
