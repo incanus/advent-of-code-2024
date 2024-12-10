@@ -56,7 +56,7 @@
     blocked
       (do
         (def next-dir-idx (mod (inc (index-of dir dirs)) (length dirs)))
-        (set dir (get dirs next-dir-idx))
+        (set dir (dirs next-dir-idx))
         (print "Blocked! Turning " dir))))
 
 (print "Off-map! Distinct positions visited: "
