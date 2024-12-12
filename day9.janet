@@ -24,12 +24,14 @@
   (let [num-gaps (length (filter |(nil? $) block-map))
         len (length block-map)]
     (defn compacted? [check-map]
-      (nil? (first (array/slice check-map (- (inc num-gaps)) -1))))
+      (nil? (check-map (- len num-gaps))))
     (var i (dec len))
+    (var next-gap (index-of nil block-map))
     (while (not (compacted? block-map))
       (def tail (block-map i))
       (if (not (nil? tail))
-        (let [next-gap (index-of nil block-map)]
+        (do
+          (while (not (nil? (block-map next-gap))) (++ next-gap))
           (put block-map next-gap tail)
           (put block-map i nil)))
       (-- i))
@@ -42,4 +44,4 @@
       (+= checksum (* i block)))
     checksum))
 
-(print "Checksum: " (-> input (expand-map) (compact-blocks) (checksum-blocks) (print)))
+(print "Checksum: " (-> input (expand-map) (compact-blocks) (checksum-blocks)))
