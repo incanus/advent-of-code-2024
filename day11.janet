@@ -17,7 +17,7 @@
               right (string/slice str mid)]
           (put stones i (scan-number left))
           (array/insert stones (++ i) (scan-number right)))
-        (put stones i (* stone 2024))))
+        (*= (stones i) 2024)))
     (++ i))
   (print (length stones)))
 
