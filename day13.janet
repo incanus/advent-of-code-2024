@@ -29,7 +29,7 @@
 (defn make-solver-fn [a-dist b-dist prize-dist]
   (fn [a] (/ (- prize-dist (* a-dist a)) b-dist)))
 
-(defn solve-machine [machine]
+(defn solve-machine [machine max-presses]
   (let [[a-x a-y] (machine :a)
         [b-x b-y] (machine :b)
         [prize-x prize-y] (machine :prize)
@@ -39,12 +39,12 @@
     # for x-axis, solve for B count for A counts of 1-100
     #
     (var x-solves @[])
-    (each a-count (range 1 101)
+    (each a-count (range (inc max-presses))
       (let [b-count (x-solver a-count)]
         (if (and
               (int? b-count)
-              (> b-count 0)
-              (<= b-count 100))
+              (>= b-count 0)
+              (<= b-count max-presses))
           (array/push x-solves [a-count b-count]))))
     #
     # given x-axis solves, see which also solve for y-axis
@@ -56,15 +56,18 @@
           (array/push solves [a-count b-count]))))
     solves))
 
-(var tokens 0)
+(defn find-minimum-tokens [machines max-presses]
+  (var tokens 0)
+  (each machine machines
+    (var minimum math/int32-max)
+    (each solve (solve-machine machine max-presses)
+      (let [cost (+ (* (solve 0) cost-x) (* (solve 1) cost-y))]
+        (if (< cost minimum)
+          (set minimum cost))))
+    (if (< minimum math/int32-max)
+      (+= tokens minimum)))
+  tokens)
 
-(each machine machines
-  (var minimum math/int32-max)
-  (each solve (solve-machine machine)
-    (let [cost (+ (* (solve 0) cost-x) (* (solve 1) cost-y))]
-      (if (< cost minimum)
-        (set minimum cost))))
-  (if (< minimum math/int32-max)
-    (+= tokens minimum)))
+(print "Minimum token cost: " (find-minimum-tokens machines 100))
 
-(print "Minimum token cost: " tokens)
+
