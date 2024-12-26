@@ -29,7 +29,10 @@
       (peg/match
         ~{:wire (3 :w)
           :gate (+ "AND" "OR" "XOR")
-          :main (some (group (* (/ (<- :wire) ,keyword) " " (/ (<- :gate) ,op) " " (/ (<- :wire) ,keyword) " -> " (/ (<- :wire) ,keyword) :s*)))}))))
+          :main (some (group (* (/ (<- :wire) ,keyword) " "
+                                (/ (<- :gate) ,op) " "
+                                (/ (<- :wire) ,keyword) " -> "
+                                (/ (<- :wire) ,keyword) :s*)))}))))
 
 (defn run [wires connections]
   (while (> (length connections) 0)
